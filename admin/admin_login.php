@@ -1,38 +1,30 @@
 <?php
-
-include '../components/connect.php';
-
-session_start();
-
-if (isset($_POST['submit'])) {
-    // Sanitize and retrieve input values
-    $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
-    $pass = filter_var($_POST['pass'], FILTER_SANITIZE_STRING);
-
-    // Prepare the SQL statement to prevent SQL injection
-    $select_admin = $conn->prepare("SELECT * FROM `admin` WHERE name = ?");
-    $select_admin->execute([$name]);
-
-    // Check if the user exists
-    if ($select_admin->rowCount() > 0) {
-        $fetch_admin = $select_admin->fetch(PDO::FETCH_ASSOC);
-        
-        // Verify the password (no hashing)
-        if ($pass === $fetch_admin['password']) {
-            // Password is correct, set session variable
-            $_SESSION['admin_id'] = $fetch_admin['id'];
-            header('location:dashboard.php');
-            exit(); // Always exit after a header redirect
-        } else {
-            $message[] = 'Incorrect username or password!';
-        }
-    } else {
-        $message[] = 'Incorrect username or password!';
+ 
+ include '../components/connect.php';
+ 
+ session_start();
+ 
+ if(isset($_POST['submit'])){
+ 
+    $name = $_POST['name'];
+    $name = filter_var($name, FILTER_SANITIZE_STRING);
+    $pass = sha1($_POST['pass']);
+    $pass = filter_var($pass, FILTER_SANITIZE_STRING);
+ 
+    $select_admin = $conn->prepare("SELECT * FROM `admin` WHERE name = ? AND password = ?");
+    $select_admin->execute([$name, $pass]);
+    
+    if($select_admin->rowCount() > 0){
+       $fetch_admin_id = $select_admin->fetch(PDO::FETCH_ASSOC);
+       $_SESSION['admin_id'] = $fetch_admin_id['id'];
+       header('location:dashboard.php');
+    }else{
+       $message[] = 'incorrect username or password!';
     }
-}
-
-?>
-
+ 
+ }
+ 
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
