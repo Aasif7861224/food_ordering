@@ -19,12 +19,13 @@ if(isset($message)){
       <img src="images/LYgjKqzpQb.ico" width="100" height="100"></a>
 
       <nav class="navbar">
-         <a href="dashboard.php">home</a>
+         <a href="dashboard.php">Dashboard</a>
          <a href="products.php">products</a>
          <a href="placed_orders.php">orders</a>
          <a href="admin_accounts.php">admins</a>
          <a href="users_accounts.php">users</a>
          <a href="messages.php">messages</a>
+         <a href="../home.php">Home</a>
       </nav>
 
       <div class="icons">
