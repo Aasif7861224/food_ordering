@@ -1,9 +1,9 @@
-<?php
+<!-- <?php
+$db_server = 'sql105.infinityfree.com';
+$db_name = 'if0_38552410_XXX';
+$user_name = 'if0_38552410';
+$user_password = 'Aasifpirjade123';
 
-$db_name = 'mysql:host=localhost;dbname=food_db';
-$user_name = 'root';
-$user_password = '';
+$conn = new PDO($db_server,$db_name, $user_name, $user_password);
 
-$conn = new PDO($db_name, $user_name, $user_password);
-
-?>
+?> -->
